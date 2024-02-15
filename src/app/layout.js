@@ -1,5 +1,13 @@
 import { Inter } from 'next/font/google'
-import './globals.css'
+
+import 'primereact/resources/themes/saga-blue/theme.css';
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
+import getConfig from 'next/config';
+import Head from 'next/head';
+
+
+        
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -9,8 +17,13 @@ export const metadata = {
 }
 
 export default function RootLayout({ children }) {
+  const contextPath = getConfig().publicRuntimeConfig.contextPath;
+ 
   return (
     <html lang="en">
+      <Head>
+                    <link id="theme-css" href={`${contextPath}/themes/lara-light-indigo/theme.css`} rel="stylesheet"></link>
+                </Head>
       <body className={inter.className}>{children}</body>
     </html>
   )

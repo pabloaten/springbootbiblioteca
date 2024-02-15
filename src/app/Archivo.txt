@@ -1,0 +1,200 @@
+"use client";
+import Link from 'next/link';
+import Contenido from './Contenido';
+import { Button } from 'primereact/button';
+import { Dialog } from 'primereact/dialog';
+import { useEffect, useState } from 'react';
+import { DataTable } from 'primereact/datatable';
+import { Column } from 'primereact/column';
+import { InputText } from 'primereact/inputtext';
+import { Menubar } from 'primereact/menubar';
+import { PrimeReactContext } from 'primereact/api';
+import axios from 'axios';
+import Layout from '@/layout/layout';
+
+
+const IndexPage = () => {
+    const [categorias, setCategorias] = useState([]);
+    const [categoria, setCategoria] = useState({})
+    const [visibleFichaCategoria, setvisibleFichaCategoria] = useState(false)
+    const [usuarios, setUsuarios] = useState([]);
+    const [libros, setLibros] = useState([])
+    const [prestamos, setPrestamos] = useState([])
+
+    let categoriaIndividual = {
+        id: null,
+        nombre: ''
+    };
+
+
+
+    useEffect(() => {
+        /* axios.get("http://localhost:8080/biblioteca/libros").then((response) => {
+            setLibros(response.data)
+        }) */
+    }, [])
+
+
+
+    useEffect(() => {
+
+        setCategorias([{ nombre: "Prueba", id: 1 }, { nombre: "Miedo 😣", id: 2 }])
+        setUsuarios([{ id: 1, nombre: "Pablo Atenciano" }, { id: 1, nombre: "Pablo Atenciano" }, { id: 1, nombre: "Pablo Atenciano" }, { id: 1, nombre: "Pablo Atenciano" }, { id: 1, nombre: "Pablo Atenciano" }, { id: 1, nombre: "Pablo Atenciano" }, { id: 1, nombre: "Pablo Atenciano" }, { id: 1, nombre: "Pablo Atenciano" }, { id: 1, nombre: "Pablo Atenciano" }, { id: 1, nombre: "Pablo Atenciano" }, { id: 1, nombre: "Pablo Atenciano" }, { id: 1, nombre: "Pablo Atenciano" }, { id: 1, nombre: "Pablo Atenciano" }, { id: 1, nombre: "Pablo Atenciano" }])
+    }, [])
+    const guardar = (categoriaAct) => {
+        categorias.filter(categoria => categoria.id == categoriaAct.id);
+    }
+
+    const [visible, setVisible] = useState(false);
+    const [visibleUsuarios, setVisibleUsuarios] = useState(false);
+    const [visibleLibro, setVisibleLibro] = useState(false)
+    const [visiblePrestamo, setVisiblePrestamo] = useState(false);
+    const [visibleFichaLibro, setVisibleFichaLibro] = useState(false);
+    const bodyCategoriaTemplate = (product) => {
+        return <><Button>Editar</Button><Button>Borrar</Button></>;
+    };
+    const bodyFichaLibroTemplate = (product) => {
+        return <><Button onClick={() => setVisibleFichaLibro(true)}>Mostrar Ficha</Button></>;
+    };
+    const bodyCategoriaLibroTemplate = (product) => {
+        return <>{product.categoria.categoria}</>;
+    };
+    const items = [
+
+        {
+            label: 'Categorias',
+            icon: 'pi pi-link',
+            command: () => {
+                setVisible(true);
+            }
+        },
+        {
+            label: 'Usuarios',
+            icon: 'pi pi-home',
+            command: () => {
+                setVisibleUsuarios(true);
+            }
+        },
+        {
+            label: 'Libros',
+            icon: 'pi pi-home',
+            command: () => {
+                setVisibleLibro(true);
+            }
+        },
+        {
+            label: 'Prestamos',
+            icon: 'pi pi-home',
+            command: () => {
+                setVisiblePrestamo(true);
+            }
+        },
+        {
+            label: 'Cerrar todo',
+            icon: 'pi pi-times',
+            command: () => {
+                setVisiblePrestamo(false);
+                setVisibleLibro(false);
+                setVisibleUsuarios(false);
+                setVisible(false);
+            }
+        }
+    ];
+    const modificarCategoria = (categoria) => {
+        setCategoria(categoria); // Actualiza la categoría individual en el estado local
+
+        // Actualiza la categoría correspondiente en el estado global
+        const nuevasCategorias = categorias.map(cat => {
+            if (cat.id === categoria.id) {
+                return categoria;
+            }
+            return cat;
+        });
+
+        // Actualiza el estado global de categorías con la nueva lista de categorías
+        setCategorias(nuevasCategorias);
+    };
+    const fichaTemplate = (categoria) => {
+
+        setCategoria(categoria);
+
+
+        return <><Button label="Ficha" icon="pi pi-external-link" onClick={() => setvisibleFichaCategoria(true)} />
+
+        </>;
+    };
+    return (
+        <div>
+            <nav>
+                <Menubar model={items} />
+
+                {/* <Button className="p-button-secondary" label="Categoria" icon="pi pi-external-link" onClick={() => setVisible(true)} /> */}
+                <Dialog header="Categorias" visible={visible} modal={false} onHide={() => setVisible(false)}>
+                    <DataTable value={categorias} tableStyle={{ minWidth: '50rem' }}>
+                        <Column field="id" header="Id"></Column>
+                        <Column field="nombre" header="Nombre"></Column>
+                        <Column header="Acciones" body={bodyCategoriaTemplate} />
+                        <Column header="Ficha" body={fichaTemplate} />
+                    </DataTable>
+                </Dialog>
+
+                {/*  <Button className="p-button-secondary" label="Usuarios" icon="pi pi-external-link" onClick={() => setVisibleUsuarios(true)} /> */}
+                <Dialog header="Usuarios" visible={visibleUsuarios} modal={false} onHide={() => setVisibleUsuarios(false)}>
+                    <DataTable value={usuarios} tableStyle={{ minWidth: '50rem' }}>
+                        <Column field="id" header="Id"></Column>
+                        <Column field="nombre" header="Nombre"></Column>
+                        <Column header="Acciones" body={bodyCategoriaTemplate} />
+                    </DataTable>
+                </Dialog>
+
+                {/* <Button className="p-button-secondary" label="Libros" icon="pi pi-external-link" onClick={() => setVisibleUsuarios(true)} /> */}
+                <Dialog header="Libros" visible={visibleLibro} modal={false} onHide={() => setVisibleLibro(false)}>
+                    <DataTable value={libros} tableStyle={{ minWidth: '50rem' }}>
+                        <Column field="id" header="Id"></Column>
+                        <Column field="nombre" header="Nombre"></Column>
+                        <Column field="autor" header="Autor"></Column>
+                        <Column field="editorial" header="Editorial"></Column>
+                        <Column header="Categoria" body={bodyCategoriaLibroTemplate}></Column>
+                        <Column header="Acciones" body={bodyFichaLibroTemplate} />
+                    </DataTable>
+                </Dialog>
+
+                {/*   <Button className="p-button-secondary" label="Prestamos" icon="pi pi-external-link" onClick={() => setVisibleUsuarios(true)} /> */}
+                <Dialog header="Prestamos" visible={visiblePrestamo} modal={false} onHide={() => setVisiblePrestamo(false)}>
+                    <DataTable value={usuarios} tableStyle={{ minWidth: '50rem' }}>
+                        <Column field="id" header="Id"></Column>
+                        <Column field="nombre" header="Nombre"></Column>
+                        <Column header="Acciones" body={bodyCategoriaTemplate} />
+                    </DataTable>
+                </Dialog>
+                <Dialog
+                    header={"Ficha de la categoría: " + categoria.nombre}
+                    visible={visibleFichaCategoria}
+                    style={{ width: '50vw' }}
+                    onHide={() => setvisibleFichaCategoria(false)}
+                >
+                    <>
+                        <InputText value={categoria.id} onChange={(e) => setCategoria({ ...categoria, id: e.target.value })} />
+                        <InputText value={categoria.nombre} onChange={(e) => setCategoria({ ...categoria, nombre: e.target.value })} />
+                    </>
+                    <Button onClick={() => modificarCategoria(categoria)}>Guardar</Button>
+                </Dialog>
+
+
+                <Dialog header={"Ficha del libro: " + categoria.nombre} visible={visibleFichaLibro} style={{ width: '50vw' }} onHide={() => setVisibleFichaLibro(false)}>
+                    <>
+                        <InputText value={categoria.id} onChange={(e) => categoria.id = e.target.value} />
+                        <InputText value={categoria.nombre} />
+                    </>
+                    <Button>Guardar</Button>
+                </Dialog>
+            </nav>
+            <main>
+                {/* <Contenido /> */}
+
+            </main>
+        </div>
+    );
+};
+
+export default IndexPage;
