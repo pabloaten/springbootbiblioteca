@@ -37,6 +37,8 @@ categoriaLibro,
     buscarLibro,
     buscarUsuario,
     seleccionar,
+    libroPrestamo,
+    usuarioPrestamo,
     prestamoSeleccionado
 }) {
 
@@ -48,8 +50,8 @@ categoriaLibro,
 
                     <Column field="idPrestamo" header="Id"></Column>
                     <Column field="fechaPrestamo" header="Fecha"></Column>
-                    <Column field="libro.nombre" header="Libro"></Column>
-                    <Column field="usuario.nombre" header="Usuario"></Column>
+                    <Column body={libroPrestamo} header="Libro"></Column>
+                    <Column body={usuarioPrestamo} header="Usuario"></Column>
                     <Column header="Ficha" body={fichaPrestamoTemplate} />
 
                 </DataTable>
@@ -76,12 +78,12 @@ categoriaLibro,
                 <div className="p-fluid p-formgrid p-grid">
                     <div className="p-field p-col" style={{ margin: '1rem' }}>
                         <label htmlFor="nombreLibro">Nombre del Libro:</label>
-                        <InputText id="nombreLibro" value={prestamoInput.libro.nombre} />
+                        <InputText id="nombreLibro" value={libroPrestamo(prestamoInput)} />
                         <Button style={{ marginTop: '1rem' }} onClick={buscarLibro}>Buscar libro</Button>
                     </div>
                     <div className="p-field p-col" style={{ margin: '1rem' }}>
                         <label htmlFor="nombreUsuario">Nombre del Usuario:</label>
-                        <InputText id="nombreUsuario" value={prestamoInput.usuario.nombre} />
+                        <InputText id="nombreUsuario" value={usuarioPrestamo(prestamoInput)} />
                         <Button style={{ marginTop: '1rem' }} onClick={buscarUsuario}>Buscar Usuario</Button>
                     </div>
                     {/* Agrega más campos según tus necesidades */}

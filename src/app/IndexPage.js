@@ -471,12 +471,34 @@ const IndexPage = () => {
             return <span>Categoría no encontrada</span>;
         }
     }
+    const libroPrestamo = (prestamo) => {
+       
+        const libroEncontrado = libros.find(lib => lib.id === prestamo.libro.id);
+
+        if (libroEncontrado) {
+            return libroEncontrado.nombre
+        } else {
+            return <span>Categoría no encontrada</span>;
+        }
+    }
+    
+
+    const usuarioPrestamo = (prestamo) => {
+
+        const usuarioEncontrado = usuarios.find(usuario => usuario.id === prestamo.usuario.id);
+
+        if (usuarioEncontrado) {
+            return usuarioEncontrado.nombre;
+        } else {
+            return <span>Categoría no encontrada</span>;
+        }
+    }
 
     const handleEliminarUsuario = (id) => {
         setVisibleEditarUsuario(false);
         eliminarUsuario(id, usuarios, setUsuarios, toast);
         const prestamosActualizados = prestamos.filter(prestamo => prestamo.usuario.id !== id);
-        console.log(prestamos,usuarios);
+        console.log(prestamos, usuarios);
         setPrestamos(prestamosActualizados);
     };
 
@@ -494,6 +516,7 @@ const IndexPage = () => {
 
         setMostrarResultadosUsuarios(true); // Mostrar el segundo Dialog cuando hay resultados
     };
+
 
     const seleccionar = (usuario) => {
         // Lógica para seleccionar el usuario
@@ -608,6 +631,8 @@ const IndexPage = () => {
                         setVisibleCrearPrestamo={setVisibleCrearPrestamo}
                         usuarios={usuarios}
                         libros={libros}
+                        usuarioPrestamo={usuarioPrestamo}
+                        libroPrestamo={libroPrestamo}
                         visibleFichaPrestamo={visibleFichaPrestamo}
                         cerrarEditarPrestamo={cerrarEditarPrestamo}
                         prestamoInput={prestamoInput}
