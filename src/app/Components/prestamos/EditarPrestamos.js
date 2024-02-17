@@ -4,8 +4,9 @@ import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-import TuComponente from './MiComponente';
+
 import { Dropdown } from 'primereact/dropdown';
+import CrearPrestamos from './CrearPrestamos';
 
 function EditarPrestamos({
     visiblePrestamos,
@@ -19,7 +20,7 @@ function EditarPrestamos({
     visibleFichaPrestamo,
     cerrarEditarPrestamo,
     prestamoInput,
-categoriaLibro,
+    categoriaLibro,
     eliminarPrestamo,
     actualizarPrestamo,
     mostrarResultadosUsuarios,
@@ -56,7 +57,7 @@ categoriaLibro,
 
                 </DataTable>
             </Dialog>
-            <TuComponente
+            <CrearPrestamos
                 prestamos={prestamos}
                 setPrestamos={setPrestamos}
                 visibleCrearPrestamo={visibleCrearPrestamo}
@@ -86,7 +87,7 @@ categoriaLibro,
                         <InputText id="nombreUsuario" value={usuarioPrestamo(prestamoInput)} />
                         <Button style={{ marginTop: '1rem' }} onClick={buscarUsuario}>Buscar Usuario</Button>
                     </div>
-                    {/* Agrega más campos según tus necesidades */}
+
                 </div>
                 <div className="p-d-flex p-jc-center" style={{ margin: '1rem' }}>
                     <Button onClick={() => eliminarPrestamo(prestamoInput.idPrestamo)} className="p-button-danger" style={{ marginRight: '0.5rem' }}>Eliminar</Button>
@@ -101,10 +102,10 @@ categoriaLibro,
                 onHide={() => setMostrarResultadosUsuarios(false)} // Ocultar el segundo Dialog
             >
                 <DataTable value={resultadosBusqueda}>
-                <Column field="id" header="ID"></Column>
-                <Column field="nombre" header="Nombre"></Column>
-                <Column field="apellidos" header="Apellidos"></Column>
-                    {/* Agrega más columnas según sea necesario */}
+                    <Column field="id" header="ID"></Column>
+                    <Column field="nombre" header="Nombre"></Column>
+                    <Column field="apellidos" header="Apellidos"></Column>
+
                     <Column body={(rowData) => (
                         <Button onClick={() => seleccionar(rowData)}>Seleccionar</Button>
                     )} />
@@ -135,11 +136,11 @@ categoriaLibro,
                         placeholder="Ordenar por" />
                 </div>
                 <DataTable value={filteredLibros}>
-                <Column field="id" header="Id"></Column>
-                <Column field="nombre" header="Nombre"></Column>
-                <Column field="autor" header="Autor"></Column>
-                <Column field="editorial" header="Editorial"></Column>
-                <Column body={categoriaLibro} header="Categoria"></Column>
+                    <Column field="id" header="Id"></Column>
+                    <Column field="nombre" header="Nombre"></Column>
+                    <Column field="autor" header="Autor"></Column>
+                    <Column field="editorial" header="Editorial"></Column>
+                    <Column body={categoriaLibro} header="Categoria"></Column>
                     <Column body={(rowData) => (
                         <Button onClick={() => seleccionarLibro(rowData)}>Seleccionar</Button>
                     )} />

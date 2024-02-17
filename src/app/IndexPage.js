@@ -14,7 +14,7 @@ import { Toast } from 'primereact/toast';
 import { Dropdown } from 'primereact/dropdown';
 import { Fieldset } from 'primereact/fieldset';
 import { InputTextarea } from 'primereact/inputtextarea';
-import TuComponente from './Components/prestamos/MiComponente';
+import TuComponente from './Components/prestamos/CrearPrestamos';
 import axios from 'axios';
 import CrearNuevaCategoriaDialog from './Components/categorias/CrearNuevaCategoriaDialog';
 import CategoriasDialog from './Components/categorias/CategoriasDialog';
@@ -38,7 +38,7 @@ const IndexPage = () => {
         id: '',
         nombre: '',
         apellidos: '',
-        // Agrega más campos según tus necesidades
+       
     });
     const [visibleEditarUsuario, setVisibleEditarUsuario] = useState(false); // Estado para controlar la visibilidad del diálogo de editar usuario
     const [visibleCrearUsuario, setVisibleCrearUsuario] = useState(false); // Estado para controlar la visibilidad del diálogo de creación de usuarios
@@ -52,7 +52,7 @@ const IndexPage = () => {
         fechaPrestamo: '',
         libro: { nombre: '' },
         usuario: { nombre: '' },
-        // Agrega más campos según tus necesidades
+      
     });
     const [visibleFichaPrestamo, setVisibleFichaPrestamo] = useState(false);
 
@@ -503,14 +503,13 @@ const IndexPage = () => {
     };
 
     const buscarLibro = () => {
-        // Lógica de búsqueda basada en los filtros
-        const resultados = []; // Aquí deberías hacer la búsqueda real en base a los filtros
+       
+        
         setResultadosBusqueda(libros);
         setMostrarResultadosLibros(true); // Mostrar el segundo Dialog cuando hay resultados
     };
     const buscarUsuario = () => {
-        // Lógica de búsqueda basada en los filtros
-        const resultados = []; // Aquí deberías hacer la búsqueda real en base a los filtros
+      
         setResultadosBusqueda(usuarios);
         console.log(prestamos);
 
@@ -527,7 +526,7 @@ const IndexPage = () => {
         }));
         setMostrarResultadosUsuarios(false)
 
-        // Aquí puedes realizar cualquier otra acción que desees con el usuario seleccionado
+      
 
     };
     const seleccionarLibro = (libro) => {
@@ -538,10 +537,10 @@ const IndexPage = () => {
             ...prevState,
             libro: libroSeleccionadoClon
         }));
-        //setLibroSeleccionadoPrestamo(libro)
+     
         setMostrarResultadosLibros(false)
 
-        // Aquí puedes realizar cualquier otra acción que desees con el usuario seleccionado
+      
     };
 
     return (

@@ -7,7 +7,7 @@ import { Dropdown } from 'primereact/dropdown';
 import { InputText } from 'primereact/inputtext';
 import { Toast } from 'primereact/toast';
 import React, { useEffect, useRef, useState } from 'react';
-const TuComponente = ({ categoriaLibro,searchText,setSearchText,sortField,setSortField,prestamos, setPrestamos, visibleCrearPrestamo, setVisibleCrearPrestamo, libros, usuarios }) => {
+const CrearPrestamos = ({ categoriaLibro, searchText, setSearchText, sortField, setSortField, prestamos, setPrestamos, visibleCrearPrestamo, setVisibleCrearPrestamo, libros, usuarios }) => {
     const [libroSeleccionadoPrestamo, setLibroSeleccionadoPrestamo] = useState({});
     const [usuarioSeleccionadoPrestamo, setUsuarioSeleccionadoPrestamo] = useState({});
     const [resultadosBusqueda, setResultadosBusqueda] = useState([]);
@@ -18,13 +18,13 @@ const TuComponente = ({ categoriaLibro,searchText,setSearchText,sortField,setSor
 
     const buscarLibro = () => {
         // Lógica de búsqueda basada en los filtros
-        const resultados = []; // Aquí deberías hacer la búsqueda real en base a los filtros
+        const resultados = [];
         setResultadosBusqueda(libros);
         setMostrarResultadosLibros(true); // Mostrar el segundo Dialog cuando hay resultados
     };
     const buscarUsuario = () => {
         // Lógica de búsqueda basada en los filtros
-        const resultados = []; // Aquí deberías hacer la búsqueda real en base a los filtros
+        const resultados = [];
         setResultadosBusqueda(usuarios);
 
         setMostrarResultadosUsuarios(true); // Mostrar el segundo Dialog cuando hay resultados
@@ -36,7 +36,7 @@ const TuComponente = ({ categoriaLibro,searchText,setSearchText,sortField,setSor
         setUsuarioSeleccionadoPrestamo(usuario)
         setMostrarResultadosUsuarios(false)
 
-        // Aquí puedes realizar cualquier otra acción que desees con el usuario seleccionado
+
     };
     const seleccionarLibro = (libro) => {
         // Lógica para seleccionar el usuario
@@ -44,11 +44,11 @@ const TuComponente = ({ categoriaLibro,searchText,setSearchText,sortField,setSor
         setLibroSeleccionadoPrestamo(libro)
         setMostrarResultadosLibros(false)
 
-        // Aquí puedes realizar cualquier otra acción que desees con el usuario seleccionado
+
     };
     const toast = useRef(null);
 
- 
+
     const [filteredLibros, setFilteredLibros] = useState([]);
     const guardarNuevoPrestamo = () => {
         const nuevoPrestamo = { libro: libroSeleccionadoPrestamo, usuario: usuarioSeleccionadoPrestamo };
@@ -66,9 +66,9 @@ const TuComponente = ({ categoriaLibro,searchText,setSearchText,sortField,setSor
                 toast.current.show({ severity: 'error', summary: 'Error', detail: 'Error al crear el libro', life: 3000 });
             });
     };
-    
+
     useEffect(() => {
-     
+
 
         // Aplicar el filtro y ordenar según el campo seleccionado
         const filtered = libros.filter(libro =>
@@ -94,15 +94,15 @@ const TuComponente = ({ categoriaLibro,searchText,setSearchText,sortField,setSor
                 <div className="p-fluid p-formgrid p-grid">
                     <div className="p-field p-col">
                         <label htmlFor="usuarioPrestamo">Nombre del Usuario:</label>
-                        <InputText id="usuarioPrestamo" value={usuarioSeleccionadoPrestamo.nombre} disabled/>
-                        <Button style={{ marginTop: '1rem',marginBottom: '1rem' }} onClick={buscarUsuario} className="p-button ">Buscar Usuario</Button>
-                       
+                        <InputText id="usuarioPrestamo" value={usuarioSeleccionadoPrestamo.nombre} disabled />
+                        <Button style={{ marginTop: '1rem', marginBottom: '1rem' }} onClick={buscarUsuario} className="p-button ">Buscar Usuario</Button>
+
                     </div>
                     <div className="p-field p-col">
                         <label htmlFor="libroPrestamo">Nombre del Libro:</label>
                         <InputText id="libroPrestamo" value={libroSeleccionadoPrestamo.nombre} disabled />
-                        <Button style={{ marginTop: '1rem',marginBottom: '1rem' }} onClick={buscarLibro} className="p-button ">Buscar</Button>
-                        
+                        <Button style={{ marginTop: '1rem', marginBottom: '1rem' }} onClick={buscarLibro} className="p-button ">Buscar</Button>
+
                     </div>
                 </div>
                 <div className="p-d-flex p-jc-center" style={{ marginTop: '1rem' }}>
@@ -116,10 +116,10 @@ const TuComponente = ({ categoriaLibro,searchText,setSearchText,sortField,setSor
                 onHide={() => setMostrarResultadosUsuarios(false)} // Ocultar el segundo Dialog
             >
                 <DataTable value={resultadosBusqueda}>
-                <Column field="id" header="ID"></Column>
-                <Column field="nombre" header="Nombre"></Column>
-                <Column field="apellidos" header="Apellidos"></Column>
-                    {/* Agrega más columnas según sea necesario */}
+                    <Column field="id" header="ID"></Column>
+                    <Column field="nombre" header="Nombre"></Column>
+                    <Column field="apellidos" header="Apellidos"></Column>
+
                     <Column body={(rowData) => (
                         <Button onClick={() => seleccionar(rowData)}>Seleccionar</Button>
                     )} />
@@ -152,12 +152,12 @@ const TuComponente = ({ categoriaLibro,searchText,setSearchText,sortField,setSor
                     />
                 </div>
                 <DataTable value={filteredLibros}>
-                <Column field="id" header="Id"></Column>
-                <Column field="nombre" header="Nombre"></Column>
-                <Column field="autor" header="Autor"></Column>
-                <Column field="editorial" header="Editorial"></Column>
-                <Column body={categoriaLibro} header="Categoria"></Column>
-                    {/* Agrega más columnas según sea necesario */}
+                    <Column field="id" header="Id"></Column>
+                    <Column field="nombre" header="Nombre"></Column>
+                    <Column field="autor" header="Autor"></Column>
+                    <Column field="editorial" header="Editorial"></Column>
+                    <Column body={categoriaLibro} header="Categoria"></Column>
+
                     <Column body={(rowData) => (
                         <Button onClick={() => seleccionarLibro(rowData)}>Seleccionar</Button>
                     )} />
@@ -167,4 +167,4 @@ const TuComponente = ({ categoriaLibro,searchText,setSearchText,sortField,setSor
     );
 };
 
-export default TuComponente;
+export default CrearPrestamos;

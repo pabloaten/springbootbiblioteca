@@ -38,7 +38,7 @@ function CrearUsuario({
                         <label htmlFor="apellidos">Apellidos</label>
                     </span>
                 </div>
-                {/* Agrega más campos según sea necesario */}
+             
                 <Button style={{ width: '100%', textAlign: 'center' }} onClick={handleCrearUsuario}>Crear</Button>
             </div>
         </Dialog>

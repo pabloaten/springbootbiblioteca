@@ -23,7 +23,7 @@ function CrearNuevoLibro({
             onHide={() => setVisibleCrearLibro(false)}
         >
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                {/* Agrega campos de entrada para los detalles del nuevo libro */}
+             
                 <InputText 
                     value={libroInput.nombre} 
                     onChange={(e) => setLibroInput({ ...libroInput, nombre: e.target.value })} 
@@ -49,7 +49,7 @@ function CrearNuevoLibro({
                     placeholder="Seleccionar Categoría"
                     style={{ width: '30%', marginBottom: '1rem' }} 
                 />
-                {/* Puedes agregar más campos de entrada según tus necesidades */}
+               
                 <Button onClick={handleGuardarNuevoLibro} style={{ width: '100%' }}>Crear Libro</Button>
             </div>
         </Dialog>

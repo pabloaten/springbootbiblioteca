@@ -42,7 +42,7 @@ function EditarUsuario({
                         placeholder="Apellidos del usuario" 
                     />
                 </div>
-                {/* Agrega más campos según tus necesidades */}
+              
             </div>
             <div style={{ display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
                 <Button style={{ marginRight: '0.5rem' }} onClick={() => handleEliminarUsuario(usuarioSeleccionado.id)}>Eliminar</Button>

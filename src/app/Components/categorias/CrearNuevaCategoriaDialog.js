@@ -23,7 +23,7 @@ const CrearNuevaCategoriaDialog = ({ visibleCrear, setVisibleCrear, nombreCatego
                     placeholder="Nombre de la Categoría"
                     style={inputTextStyle}
                 />
-                {/* Puedes agregar más campos según tus necesidades */}
+            
                 <Button onClick={handleCrearCategoria} style={buttonStyle}>Crear Categoría</Button>
             </div>
         </Dialog>
