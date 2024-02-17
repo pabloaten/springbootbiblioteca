@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import Contenido from './Contenido';
+import Contenido from './Components/Contenido';
 import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 import { useEffect, useRef, useState } from 'react';
@@ -14,21 +14,21 @@ import { Toast } from 'primereact/toast';
 import { Dropdown } from 'primereact/dropdown';
 import { Fieldset } from 'primereact/fieldset';
 import { InputTextarea } from 'primereact/inputtextarea';
-import TuComponente from './MiComponente';
+import TuComponente from './Components/prestamos/MiComponente';
 import axios from 'axios';
-import CrearNuevaCategoriaDialog from './CrearNuevaCategoriaDialog';
-import CategoriasDialog from './CategoriasDialog';
-import LibrosDialog from './LibrosDialog';
-import FichaCategoria from './FichaCategoria';
-import FichaLibro from './FichaLibro';
-import CrearNuevoLibro from './CrearNuevoLibro';
-import EditarUsuario from './EditarUsuario';
-import UsuariosDialog from './UsuariosDialog';
-import CrearUsuario from './CrearUsuario';
-import EditarPrestamos from './EditarPrestamos';
-import { actualizarCategoria, crearCategoria, guardarCategoria } from './Categorias';
-import { actualizarLibro, eliminarLibro, guardarNuevoLibro } from './Libros';
-import { crearUsuario, eliminarUsuario } from './Usuarios';
+import CrearNuevaCategoriaDialog from './Components/categorias/CrearNuevaCategoriaDialog';
+import CategoriasDialog from './Components/categorias/CategoriasDialog';
+import LibrosDialog from './Components/libros/LibrosDialog';
+import FichaCategoria from './Components/categorias/FichaCategoria';
+import FichaLibro from './Components/libros/FichaLibro';
+import CrearNuevoLibro from './Components/libros/CrearNuevoLibro';
+import EditarUsuario from './Components/usuarios/EditarUsuario';
+import UsuariosDialog from './Components/usuarios/UsuariosDialog';
+import CrearUsuario from './Components/usuarios/CrearUsuario';
+import EditarPrestamos from './Components/prestamos/EditarPrestamos';
+import { actualizarCategoria, crearCategoria, guardarCategoria } from './helper/Categorias';
+import { actualizarLibro, eliminarLibro, guardarNuevoLibro } from './helper/Libros';
+import { crearUsuario, eliminarUsuario } from './helper/Usuarios';
 const IndexPage = () => {
     // Estados de los usuarios
     const [usuarios, setUsuarios] = useState([]);
@@ -242,6 +242,8 @@ const IndexPage = () => {
     const handleEliminarLibro = (id) => {
 
         eliminarLibro(id, libros, setLibros, setVisibleFichaLibro, toast);
+        const prestamosActualizados = prestamos.filter(prestamo => prestamo.libro.id !== id);
+        setPrestamos(prestamosActualizados);
 
 
     }
@@ -471,9 +473,11 @@ const IndexPage = () => {
     }
 
     const handleEliminarUsuario = (id) => {
-        setVisibleEditarUsuario(false)
+        setVisibleEditarUsuario(false);
         eliminarUsuario(id, usuarios, setUsuarios, toast);
-
+        const prestamosActualizados = prestamos.filter(prestamo => prestamo.usuario.id !== id);
+        console.log(prestamos,usuarios);
+        setPrestamos(prestamosActualizados);
     };
 
     const buscarLibro = () => {

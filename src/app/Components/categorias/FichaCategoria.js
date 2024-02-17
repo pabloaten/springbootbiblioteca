@@ -2,7 +2,7 @@ import React from 'react';
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
-import { eliminarCategoria } from './Categorias';
+import { eliminarCategoria } from '../../helper/Categorias';
 
 function FichaCategoria({
     visibleFichaCategoria,
